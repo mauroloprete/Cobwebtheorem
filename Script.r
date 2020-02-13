@@ -1,0 +1,121 @@
+#Vamos a usar las siguientes librerias:
+#install.packages("ggplot2");install.packages("gganimate");install.packages("gifski");install.packages("png")
+#En el caso de no tenerlas instaladas podemos descomentar la linea 2. (Quitando el #)
+#Las librerias que debemos iniciar en la sesion son las siguientes:
+library("ggplot2");library("gganimate")
+#Vamos a empezar a programar nuestras funciones y luego usaremos ejemplos numericos.
+#Para programar una funcion tenemos que usar el comando "function" , dentro de los parentesis debemos escribir los argumentos de la
+#funcion, se puede ver de forma similar a f(x,y). Luego, dentro del cuerpo definiremos como se relacionan estas variables.
+TablasinPrecioDinamico=function(t,Po,do,pd,oo,po)
+    #Siendo t la cantiddd de periodos que queremos considerar. Po el valor incial, do el termino independiente de la demanda
+    #pd la pendiente de la curva de demanda. oo sera el termino independiente de la funcion de oferta y po la pendiente de dicha curva.
+    #En la primera linea mostramos una de las identidades del modelo, el precio de equilibrio y z el "b" de la ecuacion en diferencia.
+    {Pe=(do+oo)/(pd+po) ; z=(-po)/(pd) ; tabla=NULL ; a=NULL ; i=NULL ; 
+    #Los objetos tabla a, e ,i los creamos en esta primera linea pero los declaramos vacios. Ahora, vamos a usar el bucle for , que lo que hace
+    #es generar numeros, el sentido es usar estos numeros como indices en los objetos. Usaremos la letra i para mencionarlo en las expresiones.
+    for (i in 0:t) 
+    #Podemos ver que en la siguientes lineas se definen las curvas de oferta, demanda y el precio en el periodo t . La solucion obtenida
+    #Ademas , podemos ver que la oferta esta en funcion del perdiodo t, unicamente lo haremos para mostrar que si el precio se determinara en el mismo periodo
+    #El mercado no estaria en equilibrio, uno de los supuestos del modelo y ademas estaria violando la condicion de equilibrio. 
+    {Pt=Pe+(Po-Pe)*((z)^(i)); Qd=abs(do-(pd*Pt));Qs=abs((po*Pt)-oo);a=c(i,Qd,Qs,Pt);tabla=rbind.data.frame(tabla,a)
+    names(tabla)=c("Periodo","CantidadDemandada","CantidadOfrecida","Precio en t")}
+    #El resultado de esta funcion sera una tabla , donde sus columnas se llamaran segun el vector de la linea anterior.
+    return(tabla)}
+#Esta funcion es similar a la anterior , tiene las mismas identidades y argumentos, se diferencia unicamente que la oferta se comprta segun los supuestos
+#del modelo.
+TablaPrecioDinamico=function(t,Po,do,pd,oo,po)
+    {Pe=(do+oo)/(pd+po) ; z=(-po)/(pd) ; tabla=NULL ; a=NULL ; i=NULL ; 
+    for (i in 0:t) 
+    {Pt=Pe+(Po-Pe)*((z)^(i));Ptm1=Pe+(Po-Pe)*((z)^(i-1));Qd=abs(do-(pd*Pt)); Qs=abs((po*Ptm1)-oo) ; a=c(i,Qd,Qs,Pt) ; tabla=rbind.data.frame(tabla,a) ; 
+    names(tabla)=c("Periodo","CantidadDemandada","CantidadOfrecida","Precio en t")}
+    return(tabla)}
+#Para crear la animacion vamos a crear otra funcion que tiene los mismos argumentos que las anteriores.
+#Su resultado es una tabla , pero su estructura esta pensada para la animacion en gganimate. Vamos a agregar por filas
+#Los datos obtenidos, primero el de la oferta y luego el de la demanda. 
+Animacion=function(t,Po,do,pd,oo,po) 
+    #Vamos a definir la solucion de la ecuacion en diferencia:
+    {Pe=(do+oo)/(pd+po) ; z=(-po)/(pd) 
+    #Vamos a -declarar- unos objetos que la funcion tiene que usar para almacenar datos:
+    tabla=NULL ; a=NULL ; i=NULL ; b=NULL 
+    #En el periodo inicial, existe una demanda del bien , pero los productores no tienen dicha produccion para venderla en el mercado
+    #por lo que Qs=0 y Qd sera segun la funcion establecida.
+    tabla=rbind.data.frame(tabla,c(0,0,Po),c(0,abs(do-(pd*Po)),Po))
+    #Para tener que ejecturar la funcion una unica vez , vamos a usar el bucle for , que lo que hace es generar numeros que nos serviran para representar el tiempo en cada funcion. Se debe declarar un identificador (i)
+    #para poder llamar el numero cuando lo nesecitemos y establecer su recorrido.
+    for(i in 1:t) 
+    {Pt=Pe+(Po-Pe)*((z)^(i));Ptm1=Pe+(Po-Pe)*((z)^(i-1));Qd=abs(do-(pd*Pt));Qs=abs((po*Ptm1)-oo);a=c(i,Qs,Ptm1) ; b =c(i,Qd,Pt);tabla=rbind.data.frame(tabla,a,b) ; 
+    names(tabla)=c("Periodo","Cantidad","Pt")}
+    return(tabla)}
+#Las siguientes presentaciones graficas, estan en el plano (Q,P) lo cual se debe tomar algunas consideraciones respecto a las concluciones sobre la osiclacion del precio. Es decir, en el estas concluciones son para el plano (P,Q) el inverso al que estara
+#Representado en la animacion , a efectos de los datos estos seran iguales, pero notaran que lo que decimos sobre las inclinaciones de las curvas tendra un sentido inverso en la representacion grafica.
+##################################################################################################################################################################################################################################                                                                                                                                                                                                                          #
+#                                  Modelo de la telarnia amortiguado b<1 (En la expresion de Pt, la pendiente de la curva de demanda es mayor, en P,Q)                                                                           #      
+##################################################################################################################################################################################################################################
+#Como habiamos dicho antes, el mercado nunca se equilibraria en el periodo, es mas la oferta sera retardada.
+TablasinPrecioDinamicoE1=TablasinPrecioDinamico(35,40,12,0.3,5,0.25)
+#En cambio , ya que esta funcion si tiene implicita las identidades del modelo , podemos ver que las cantidades son las mismas.
+TablaPrecioDinamicoE1=TablaPrecioDinamico(35,40,12,0.3,5,0.25)
+TablaPrecioDinamicoE1
+write.csv(round(TablaPrecioDinamicoE1,1),file = "TablaE1.csv",row.names = FALSE)
+p1=seq(21,40,0.1);C1=cbind.data.frame(p1,qdd=12-((0.3)*p1),qss=0.25*p1-5)
+AnimacionE1=Animacion(35,40,12,0.3,5,0.25)
+write.csv(round(AnimacionE1,1),file = "E1.csv",row.names = FALSE)
+#Vamos a crear la grafica con ggplot, este paquete a diferencia del que viene de base en R , se usan capas para personalizarlo. Primero definimos el objeto donde estan los datos
+#Que variable va en cada eje y su forma de represtacion (geom_ponit,geom_line,etc). Para superponer graficos tenemos que sumar el estilo de los graficos pero declarado que la informacion
+#Se encuentre en lugares diferentes.
+GE1=ggplot(AnimacionE1,aes(Cantidad,Pt))+geom_line(size=1.5)
+GME1=GE1+geom_line(data=C1,aes(x=qdd,y=p1,colour="#0009"),size=2.7,)+geom_line(data=C1,aes(x=qss,y=p1,colour="#0020"),size=2.7)
+GME1=GME1+ggtitle("Modelo de la Telaraña",subtitle="Amortiguado")+xlab("Cantidad")+ylab("Precio")
+GME1=GME1+theme_bw()+theme(legend.position="none")+theme(plot.title = element_text(colour = "blue", face = "bold",size="22"),axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),axis.title.y = element_text(face="bold",colour="darkblue", size = 12))
+GME1A=GME1+transition_reveal(AnimacionE1$Periodo)+shadow_mark()
+anim_save(GME1A,filename = "GME1A.gif")
+GME1A
+MovPE1=ggplot(AnimacionE1,aes(x=Periodo,y=Pt))+geom_line(size=2.7)+scale_x_discrete()+ggtitle("Modelo de la Telaraña",subtitle="Amortiguado")+xlab("")+ylab("Precio")
+MovPE1=MovPE1+theme_bw()+theme(legend.position="none")+theme(plot.title = element_text(colour = "blue", face = "bold",size="22"),axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),axis.title.y = element_text(face="bold",colour="darkblue", size = 12))
+MovPE1=MovPE1+transition_reveal(AnimacionE1$Periodo)
+anim_save(MovPE1,filename = "MovPE1.gif")
+MovPE1
+##################################################################################################################################################################################################################################                                                                                                                                                                                                                          #
+#                                          Modelo de la telarnia Uniforme (b=1) (En la expresion de Pt, la pendientes son iguales, en P,Q y Q,P)                                                                                #       
+##################################################################################################################################################################################################################################
+TablasinPrecioDinamicoE2=TablasinPrecioDinamico(12,15,9,0.3,3,0.3)
+TablaPrecioDinamicoE2=TablaPrecioDinamico(12,15,9,0.3,3,0.3)
+TablaPrecioDinamicoE2
+write.csv(round(TablaPrecioDinamicoE2,1),file = "TablaE2.csv",row.names = FALSE)
+p2=seq(10,30,0.1);C2=cbind.data.frame(p2,qdd=9-((0.3)*p2),qss=0.3*p2-3)
+AnimacionE2=Animacion(12,15,9,0.3,3,0.3)
+write.csv(round(AnimacionE2,1),file = "E2.csv",row.names = FALSE)
+GE2=ggplot(AnimacionE2,aes(Cantidad,Pt))+geom_line(size=1.5)
+GME2=GE2+geom_line(data=C2,aes(x=qdd,y=p2,colour="#0009"),size=2.7,)+geom_line(data=C2,aes(x=qss,y=p2,colour="#0020"),size=2.7)
+GME2=GME2+ggtitle("Modelo de la Telaraña",subtitle="Uniforme")+xlab("Cantidad")+ylab("Precio")
+GME2=GME2+theme_bw()+theme(legend.position="none")+theme(plot.title = element_text(colour = "blue", face = "bold",size="22"),axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),axis.title.y = element_text(face="bold",colour="darkblue", size = 12))
+GME2A=GME2+transition_reveal(AnimacionE2$Periodo)+shadow_mark()
+anim_save(GME2A,filename = "GME2A.gif")
+GME2A
+MovPE2=ggplot(AnimacionE2,aes(x=Periodo,y=Pt))+geom_line(size=2.7)+scale_x_discrete()+ggtitle("Modelo de la Telaraña",subtitle="Uniforme")+xlab("")+ylab("Precio")
+MovPE2=MovPE2+theme_bw()+theme(legend.position="none")+theme(plot.title = element_text(colour = "blue", face = "bold",size="22"),axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),axis.title.y = element_text(face="bold",colour="darkblue", size = 12))
+MovPE2=MovPE2+transition_reveal(AnimacionE2$Periodo)
+anim_save(MovPE2,filename = "MovPE2.gif")
+MovPE2
+##################################################################################################################################################################################################################################                                                                                                                                                                                                                          #
+#                                          Modelo de la telarania explosiva (b>1) (En la expresion de Pt, la pendiente de la curva de oferta es mayor, en P,Q en Q,P es inversa)                                                 #       
+##################################################################################################################################################################################################################################
+TablasinPrecioDinamicoE3=TablasinPrecioDinamico(10,6,16,3/2,4,2)
+TablaPrecioDinamicoE3=TablaPrecioDinamico(10,6,16,3/2,4,2)
+TablaPrecioDinamicoE3
+write.csv(round(TablaPrecioDinamicoE3,1),file = "TablaE3.csv",row.names = FALSE)
+p3=seq(1,11,0.001);C3=cbind.data.frame(p3,qdd=16-((3/2)*p3),qss=2*p3-4)
+AnimacionE3=Animacion(10,6,16,3/2,4,2)
+write.csv(round(AnimacionE3,1),file = "E3.csv",row.names = FALSE)
+GE3=ggplot(AnimacionE3,aes(Cantidad,Pt))+geom_line(size=1.5)
+GME3=GE3+geom_line(data=C3,aes(x=qdd,y=p3,colour="#0009"),size=2.7,)+geom_line(data=C3,aes(x=qss,y=p3,colour="#0020"),size=2.7)
+GME3=GME3+ggtitle("Modelo de la Telaraña",subtitle="Explosivo")+xlab("Cantidad")+ylab("Precio")
+GME3=GME3+theme_bw()+theme(legend.position="none")+theme(plot.title = element_text(colour = "blue", face = "bold",size="22"),axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),axis.title.y = element_text(face="bold",colour="darkblue", size = 12))
+GME3A=GME3+transition_reveal(AnimacionE3$Periodo)+shadow_mark()
+anim_save(GME3A,filename = "GME3A.gif")
+GME3A
+MovPE3=ggplot(AnimacionE3,aes(x=Periodo,y=Pt))+geom_line(size=2.7)+scale_x_discrete()+ggtitle("Modelo de la Telaraña",subtitle="Explosivo")+xlab("")+ylab("Precio")
+MovPE3=MovPE3+theme_bw()+theme(legend.position="none")+theme(plot.title = element_text(colour = "blue", face = "bold",size="22"),axis.title.x = element_text(face="bold", colour="darkgreen", size = 12),axis.title.y = element_text(face="bold",colour="darkblue", size = 12))
+MovPE3=MovPE3+transition_reveal(AnimacionE3$Periodo)
+anim_save(MovPE3,filename = "MovPE3.gif")
+MovPE3
