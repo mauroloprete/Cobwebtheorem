@@ -1,0 +1,14 @@
+
+*.csv
+*.html
+*.gz
+*.snm
+*.pdf
+*.out
+*.nav
+*.log
+*.fls
+*.fdb_latexmk
+*.aux
+*.toc
+*.aux

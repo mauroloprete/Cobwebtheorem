@@ -1,2 +1,0 @@
-# ModeloDeLaTelarania
- Presentacion Calculo III
