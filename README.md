@@ -13,8 +13,8 @@ El trabajo fue realizado en conjunto con Fabricio Machado.
 ![](MovPE2.gif)
 ![](GME2A.gif)
 
-![](MovPE2.gif)
-![](GME2A.gif)
+![](MovPE3.gif)
+![](GME3A.gif)
 
 
 
