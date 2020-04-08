@@ -7,6 +7,9 @@ En el repositorio se encuentra la programación en R con simulaciones de casos y
 
 El trabajo fue realizado en conjunto con Fabricio Machado.
 
+## Situación: Amortiguado
+### La pendiente de la curva de demanda es mayor que la de la oferta. 
+
 <table>
 <tbody>
 <tr>
@@ -20,6 +23,9 @@ El trabajo fue realizado en conjunto con Fabricio Machado.
 </tbody>
 </table>
 
+## Situación: Uniforme
+### La pendiente de la curva de demanda es igual a la de la oferta. 
+
 <table>
 <tbody>
 <tr>
@@ -32,6 +38,9 @@ El trabajo fue realizado en conjunto con Fabricio Machado.
 </tr>
 </tbody>
 </table>
+
+## Situación: Explosivo
+### La pendiente de la curva de demanda es menor a la de la oferta. 
 
 <table>
 <tbody>
