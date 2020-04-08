@@ -1,4 +1,4 @@
-# Modelo de la Telaraña
+# Modelo de la Telaraña 🕸️
 ## Exposición para "Calculo III 2019" materia de la Licenciatura en Estadística (UdelaR) 
 
 El modelo de la Telaraña es un modelo general que explica la formación de precios con curvas de oferta y demanda establecidas en periodos de tiempo diferentes.
