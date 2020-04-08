@@ -7,16 +7,46 @@ En el repositorio se encuentra la programación en R con simulaciones de casos y
 
 El trabajo fue realizado en conjunto con Fabricio Machado.
 
-<p> ![](MovPE1.gif) ![](GME1A.gif)</p>
+<table>
+<tbody>
+<tr>
+<td>
+<img src="GME1A.gif">
+</td>
+<td>
+<img src="MovPE1.gif">
+</td>
+</tr>
+</tbody>
+</table>
 
-<p> <img src="MovPE1.gif"> <img src="GME1A.gif"> </p>
+<table>
+<tbody>
+<tr>
+<td>
+<img src="GME2A.gif">
+</td>
+<td>
+<img src="MovPE2.gif">
+</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<tbody>
+<tr>
+<td>
+<img src="GME3A.gif">
+</td>
+<td>
+<img src="MovPE3.gif">
+</td>
+</tr>
+</tbody>
+</table>
 
 
 
-![](MovPE2.gif)
-![](GME2A.gif)
-
-![](MovPE3.gif)
-![](GME3A.gif)
 
 
