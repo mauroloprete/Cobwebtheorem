@@ -1,13 +1,9 @@
-# Exposición para "Cálculo III 2019" materia de la Licenciatura en Estadística (UdelaR) 
+# Exposición para "Cálculo III 2019"
 
 El modelo de la Telaraña es un modelo general que explica la formación de precios con curvas de oferta y demanda establecidas en periodos de tiempo diferentes.
 Se utilizo como parte de una aplicación a la economia al tema de *Ecuaciones en diferencia*. 
 
-En el repositorio se encuentra la programación en R con simulaciones de casos y su animación utilizando gganimate y ggplot2. Además, se encuentra la presentación utilizada en la exposición.
-
-El trabajo fue realizado en conjunto con Fabricio Machado.
-
-## Situación: Amortiguado
+## Osilación Amortiguada:
 ### La pendiente de la curva de demanda es mayor que la de la oferta. 
 
 <table>
@@ -23,7 +19,7 @@ El trabajo fue realizado en conjunto con Fabricio Machado.
 </tbody>
 </table>
 
-## Situación: Uniforme
+## Osilación Uniforme:
 ### La pendiente de la curva de demanda es igual a la de la oferta. 
 
 <table>
@@ -39,7 +35,7 @@ El trabajo fue realizado en conjunto con Fabricio Machado.
 </tbody>
 </table>
 
-## Situación: Explosivo
+## Osilación Explosiva:
 ### La pendiente de la curva de demanda es menor a la de la oferta. 
 
 <table>
@@ -55,7 +51,8 @@ El trabajo fue realizado en conjunto con Fabricio Machado.
 </tbody>
 </table>
 
+En el repositorio se encuentra la programación en R con simulaciones de casos y su animación utilizando gganimate y ggplot2. Además, se encuentra la presentación utilizada en la exposición.
 
-
+El trabajo fue realizado en conjunto con Fabricio Machado.
 
 
