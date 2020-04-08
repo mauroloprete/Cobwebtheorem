@@ -7,8 +7,11 @@ En el repositorio se encuentra la programación en R con simulaciones de casos y
 
 El trabajo fue realizado en conjunto con Fabricio Machado.
 
-![](MovPE1.gif)
-![](GME1A.gif)
+<p> ![](MovPE1.gif) ![](GME1A.gif)</p>
+
+<p> <img src="MovPE1.gif"> <img src="GME1A.gif"> </p>
+
+
 
 ![](MovPE2.gif)
 ![](GME2A.gif)
