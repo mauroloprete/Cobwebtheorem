@@ -16,7 +16,4 @@ El trabajo fue realizado en conjunto con Fabricio Machado.
 ![](MovPE3.gif)
 ![](GME3A.gif)
 
-<img src="MovPE1.gif" width="250" height="250">  
-<img src="GME1A.gif" width="250" height="250">
-
 
