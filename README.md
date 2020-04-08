@@ -8,7 +8,8 @@ En el repositorio se encuentra la programación en R con simulaciones de casos y
 
 El trabajo fue realizado en conjunto con Fabricio Machado.
 
- 
+![](MovPE1.gif)
+![](GME1A.gif)
 
 
 <table>
