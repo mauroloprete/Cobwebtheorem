@@ -56,4 +56,3 @@ En el repositorio se encuentra la programación en R con simulaciones de casos y
 
 El trabajo fue realizado en conjunto con Fabricio Machado.
 
-Prueba
