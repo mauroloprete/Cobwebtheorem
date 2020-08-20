@@ -1,34 +1,77 @@
-#Vamos a usar las siguientes librerias:
-#install.packages("ggplot2");install.packages("gganimate");install.packages("gifski");install.packages("png")
-#En el caso de no tenerlas instaladas podemos descomentar la linea 2. (Quitando el #)
-#Las librerias que debemos iniciar en la sesion son las siguientes:
+# Vamos a usar las siguientes librerias :
+    #ggplot2
+    #gganimate
+# En el caso de no tenerlas , instalarlas con :
+    # install.packages("ggplot2") ; install.packages("gganimate") ; install.packages("gifski") ; install.packages("png")
+    #(Quitar el # delante de la primera linea.
+
+# COn library , cargaremos los paquetes en la sesión :
 library("ggplot2");library("gganimate")
-#Vamos a empezar a programar nuestras funciones y luego usaremos ejemplos numericos.
-#Para programar una funcion tenemos que usar el comando "function" , dentro de los parentesis debemos escribir los argumentos de la
-#funcion, se puede ver de forma similar a f(x,y). Luego, dentro del cuerpo definiremos como se relacionan estas variables.
-TablasinPrecioDinamico=function(t,Po,do,pd,oo,po)
-    #Siendo t la cantiddd de periodos que queremos considerar. Po el valor incial, do el termino independiente de la demanda
-    #pd la pendiente de la curva de demanda. oo sera el termino independiente de la funcion de oferta y po la pendiente de dicha curva.
-    #En la primera linea mostramos una de las identidades del modelo, el precio de equilibrio y z el "b" de la ecuacion en diferencia.
-    {Pe=(do+oo)/(pd+po) ; z=(-po)/(pd) ; tabla=NULL ; a=NULL ; i=NULL ; 
-    #Los objetos tabla a, e ,i los creamos en esta primera linea pero los declaramos vacios. Ahora, vamos a usar el bucle for , que lo que hace
-    #es generar numeros, el sentido es usar estos numeros como indices en los objetos. Usaremos la letra i para mencionarlo en las expresiones.
-    for (i in 0:t) 
-    #Podemos ver que en la siguientes lineas se definen las curvas de oferta, demanda y el precio en el periodo t . La solucion obtenida
-    #Ademas , podemos ver que la oferta esta en funcion del perdiodo t, unicamente lo haremos para mostrar que si el precio se determinara en el mismo periodo
-    #El mercado no estaria en equilibrio, uno de los supuestos del modelo y ademas estaria violando la condicion de equilibrio. 
-    {Pt=Pe+(Po-Pe)*((z)^(i)); Qd=abs(do-(pd*Pt));Qs=abs((po*Pt)-oo);a=c(i,Qd,Qs,Pt);tabla=rbind.data.frame(tabla,a)
-    names(tabla)=c("Periodo","CantidadDemandada","CantidadOfrecida","Precio en t")}
-    #El resultado de esta funcion sera una tabla , donde sus columnas se llamaran segun el vector de la linea anterior.
-    return(tabla)}
-#Esta funcion es similar a la anterior , tiene las mismas identidades y argumentos, se diferencia unicamente que la oferta se comprta segun los supuestos
-#del modelo.
-TablaPrecioDinamico=function(t,Po,do,pd,oo,po)
-    {Pe=(do+oo)/(pd+po) ; z=(-po)/(pd) ; tabla=NULL ; a=NULL ; i=NULL ; 
-    for (i in 0:t) 
-    {Pt=Pe+(Po-Pe)*((z)^(i));Ptm1=Pe+(Po-Pe)*((z)^(i-1));Qd=abs(do-(pd*Pt)); Qs=abs((po*Ptm1)-oo) ; a=c(i,Qd,Qs,Pt) ; tabla=rbind.data.frame(tabla,a) ; 
-    names(tabla)=c("Periodo","CantidadDemandada","CantidadOfrecida","Precio en t")}
-    return(tabla)}
+
+# Vamos a empezar a programar nuestras funciones y luego usaremos ejemplos númericos:
+    # Para programar una función en R , debemos de usar el comando "function", dentro del parentesis mencionaremos
+    # los argumentos de la función , se puede ver de forma similar a f(x,y) siendo x , y los argumentos de la función.
+    # Dentro de los corchetes , le diremos a R que hacer con sus argumentos , es decir el cuerpo de la función.
+TablassinPrecioDinamico <- function(t,Po,do,pd,oo,pd) {
+    #Siendo t la cantidad de periodos que queremos considerar, Po el valor inicial , do el termino independiente de la demanda
+    # pd la pendiente de la curva de demanda. oo será el termino independiente de la función de oferta y po la pendiente de dicha curva.
+    # En la primera linea de codigo mostramos una de las identidades del modelo , el precio de equilibrio y z el "b" de la ecuación en diferencia.
+    Pe = (do+oo)/(pd+po) 
+    z = (-po)/pd 
+    tabla = NULL
+    a = NULL
+    i = NULL
+        #Los objetos tabla , a , z e i los creamos pero los declaramos vacios. Ahora vamos a usar la función for, que lo que hace es 
+        #generar operaciones 
+    for (i in 0:t) {
+       # Podemos ver que en las siguientes lineas que se definen las curvas de oferta , demanda y el precio en el periodo t. La solución obtenida
+       # Esto lo haremnos únicamente para mostrar qué si el precio se determinara en el mismo periodo, el mercado no estaría en equilibrio,
+       # Uno de los supuestos del modelo y además de violar la condición de equilibrio.
+        Pt = Pe + (Po-Pe) * ((z)^(i))
+        Qd = abs(do-(pd*Pt)) 
+        Qs = abs((po*Pt) - oo)
+        a = c(
+            i,
+            Qd,
+            Qs,
+            Pt
+        )
+        Tabla = rbind.data.frame(
+            tabla,
+            a
+        )
+        names(tabla) = c(
+            "Periodo",
+            "CantidadDemandada",
+            "CantidadOfrecida",
+            "Precio en t"
+        )
+        return(tabla)
+    }
+}
+
+TablaPrecioDinamico <- function(t,Po,do,pd,oo,pd) {
+    Pe = (do+oo)/(pd+po)
+    z = (-po)/(pd)
+    tabla = NULL
+    a = NULL
+    i = NULL  
+    for (i in 0:t) {
+        Pt = Pe+(Po-Pe)*((z)^(i))
+        Ptm1 = Pe+(Po-Pe)*((z)^(i-1))
+        Qd = abs(do-(pd*Pt))
+        Qs = abs((po*Ptm1) - oo)
+        a = c(i,Qd,Qs,Pt)
+        tabla = rbind.data.frame(tabla,a)  
+        names(tabla) = c(
+            "Periodo",
+            "CantidadDemandada",
+            "CantidadOfrecida",
+            "Precio en t")
+    }
+    return(tabla)
+}
+
 #Para crear la animacion vamos a crear otra funcion que tiene los mismos argumentos que las anteriores.
 #Su resultado es una tabla , pero su estructura esta pensada para la animacion en gganimate. Vamos a agregar por filas
 #Los datos obtenidos, primero el de la oferta y luego el de la demanda. 
@@ -119,3 +162,4 @@ MovPE3=MovPE3+theme_classic()+theme(legend.position="none")
 MovPE3=MovPE3+transition_reveal(AnimacionE3$Periodo)
 anim_save(MovPE3,filename = "MovPE3.gif")
 MovPE3
+
