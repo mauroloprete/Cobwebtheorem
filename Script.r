@@ -220,11 +220,11 @@ anim_save(
 MovPE1
 
 ##################################################################################################################################################
-#                                              Telaraña Uniforme b = 1 (En la expresión de Pt,                                                  #
+#                                              Telaraña Uniforme b = 1 (En la expresión de Pt,                                                   #
 #                                              la pendiente de la curva de demanda es igual en (P,Q))                                            #
 ##################################################################################################################################################
 
-TablassinPrecioDinamicoE1 <- TablassinPrecioDinamico(
+TablassinPrecioDinamicoE2 <- TablassinPrecioDinamico(
     t = 12,
     Po = 15,
     do = 9,
@@ -311,8 +311,94 @@ anim_save(
 )
 MovPE2
 
+##################################################################################################################################################
+#                                              Telaraña Explosiva b > 1 (En la expresión de Pt,                                                   #
+#                                              la pendiente de la curva de demanda es mayor en (P,Q))                                            #
+##################################################################################################################################################
 
+TablassinPrecioDinamicoE3 <- TablassinPrecioDinamico(
+    t = 10,
+    Po = 6,
+    do = 16,
+    pd = 3/2,
+    oo = 4,
+    po = 2
+)
 
+p3 <- seq(1,11,0.01)
 
+C3 <- cbind.data.frame(
+    p3,
+    qdd = 16 - ((3/2) * p3 ),
+    qss = 2 * p3 - 4
+    )
 
+AnimacionE3 <- Animacion(
+    t = 10,
+    Po = 6,
+    do = 16,
+    pd = 3/2,
+    oo = 4,
+    po = 2
+    )
 
+GE3 <- ggplot(
+    AnimacionE3,
+    aes(
+        Cantidad,
+        Pt
+    )
+) + 
+geom_line(size = 1.5) +
+geom_line( # Curva de demanda
+    data = C3 ,
+    aes(
+        qdd,
+        p3
+    ),
+    size = 2.7,
+    colour = "green"
+) +
+geom_line( # Curva de Oferta
+    data = C3 ,
+    aes(
+        qss,
+        p3
+    ),
+    colour = "blue",
+    size = 2.7
+) + 
+xlab("Cantidad") + ylab("Precio") +
+theme_classic() + 
+theme(legend.position = "none") +
+# Animación con transition reveal :
+transition_reveal(AnimacionE3$Periodo) + 
+shadow_mark()
+anim_save(
+    GE3,
+    filename = "GE3A.gif"
+)
+GE3
+
+# Dinamica de los precios 
+
+MovPE3 <- ggplot(
+    AnimacionE3,
+    aes(
+        Periodo,
+        Pt
+    )
+) +
+geom_line(
+    size = 2.7
+) +
+scale_x_discrete() +
+xlab("") + ylab("Precio en el periodo t") +
+theme_classic() + theme(legend.position = "none") +
+transition_reveal(AnimacionE3$Periodo) + 
+shadow_mark()
+anim_save(
+    MovPE3,
+    filename = "MovPE3.gif"
+)
+MovPE3
