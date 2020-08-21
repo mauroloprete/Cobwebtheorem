@@ -4,12 +4,14 @@
 
 if (!require("ggplot2")) {
    install.packages("ggplot2")
+   library(ggplot2)
 } else {
    library(ggplot2)
 }
 
 if (!require("gganimate")) {
    install.packages("gganimate")
+   library(gganimate)
 } else {
    library(gganimate)
 }
