@@ -1,12 +1,18 @@
 # Vamos a usar las siguientes librerias :
     #ggplot2
     #gganimate
-# En el caso de no tenerlas , instalarlas con :
-    # install.packages("ggplot2") ; install.packages("gganimate") ; install.packages("gifski") ; install.packages("png")
-    #(Quitar el # delante de la primera linea.
 
-# COn library , cargaremos los paquetes en la sesión :
-library("ggplot2") ; library("gganimate") ; library(magrittr)
+if (!require("ggplot2")) {
+   install.packages("ggplot2")
+} else {
+   library(ggplot2)
+}
+
+if (!require("gganimate")) {
+   install.packages("gganimate")
+} else {
+   library(gganimate)
+}
 
 # Vamos a empezar a programar nuestras funciones y luego usaremos ejemplos númericos:
     # Para programar una función en R , debemos de usar el comando "function", dentro del parentesis mencionaremos
