@@ -2,12 +2,16 @@
     #ggplot2
     #gganimate
 
+# Ggplot 2 : En el caso de no tener la libraria instalada, se instala sola.
+
 if (!require("ggplot2")) {
    install.packages("ggplot2")
    library(ggplot2)
 } else {
    library(ggplot2)
 }
+
+# Gganimate : En el caso de no tenerla , se instala sola.
 
 if (!require("gganimate")) {
    install.packages("gganimate")
