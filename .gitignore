@@ -3,7 +3,6 @@
 *.html
 *.gz
 *.snm
-*.pdf
 *.out
 *.nav
 *.log
