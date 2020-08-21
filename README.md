@@ -11,7 +11,7 @@ Se utilizo como parte de una aplicación a la economia al tema de *Ecuaciones en
 <tbody>
 <tr>
 <td>
-<img src="GME1A.gif">
+<img src="GE1.gif">
 </td>
 <td>
 <img src="MovPE1.gif">
