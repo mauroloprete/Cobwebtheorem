@@ -95,7 +95,7 @@ Animacion <- function(t,Po,do,pd,oo,po){
         ),
         c(
             0,
-            abs(do-(pd*Po)),
+            abs(do - (pd * Po)),
             Po
         )
     )
@@ -219,7 +219,97 @@ anim_save(
 )
 MovPE1
 
-      
+##################################################################################################################################################
+#                                              Telaraña Uniforme b = 1 (En la expresión de Pt,                                                  #
+#                                              la pendiente de la curva de demanda es igual en (P,Q))                                            #
+##################################################################################################################################################
+
+TablassinPrecioDinamicoE1 <- TablassinPrecioDinamico(
+    t = 12,
+    Po = 15,
+    do = 9,
+    pd = 0.3,
+    oo = 3,
+    po = 0.3
+)
+
+p2 <- seq(10,30,0.1)
+
+C2 <- cbind.data.frame(
+    p2,
+    qdd = 9 - ((0.3) * p2 ),
+    qss = 0.3 * p2 - 3
+    )
+
+AnimacionE2 <- Animacion(
+    t = 12,
+    Po = 15,
+    do = 9,
+    pd = 0.3,
+    oo = 3,
+    po = 0.3
+    )
+
+GE2 <- ggplot(
+    AnimacionE2,
+    aes(
+        Cantidad,
+        Pt
+    )
+) + 
+geom_line(size = 1.5) +
+geom_line( # Curva de demanda
+    data = C2 ,
+    aes(
+        qdd,
+        p2
+    ),
+    size = 2.7,
+    colour = "green"
+) +
+geom_line( # Curva de Oferta
+    data = C2 ,
+    aes(
+        qss,
+        p2
+    ),
+    colour = "blue",
+    size = 2.7
+) + 
+xlab("Cantidad") + ylab("Precio") +
+theme_classic() + 
+theme(legend.position = "none") +
+# Animación con transition reveal :
+transition_reveal(AnimacionE2$Periodo) + 
+shadow_mark()
+anim_save(
+    GE2,
+    filename = "GE2A.gif"
+)
+GE2
+
+# Dinamica de los precios 
+
+MovPE2 <- ggplot(
+    AnimacionE2,
+    aes(
+        Periodo,
+        Pt
+    )
+) +
+geom_line(
+    size = 2.7
+) +
+scale_x_discrete() +
+xlab("") + ylab("Precio en el periodo t") +
+theme_classic() + theme(legend.position = "none") +
+transition_reveal(AnimacionE2$Periodo) + 
+shadow_mark()
+anim_save(
+    MovPE2,
+    filename = "MovPE2.gif"
+)
+MovPE2
 
 
 
