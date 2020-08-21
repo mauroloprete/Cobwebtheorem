@@ -27,7 +27,7 @@ Se utilizo como parte de una aplicación a la economia al tema de *Ecuaciones en
 <tbody>
 <tr>
 <td>
-<img src="GME2A.gif">
+<img src="GE2A.gif">
 </td>
 <td>
 <img src="MovPE2.gif">
@@ -43,7 +43,7 @@ Se utilizo como parte de una aplicación a la economia al tema de *Ecuaciones en
 <tbody>
 <tr>
 <td>
-<img src="GME3A.gif">
+<img src="GE3A.gif">
 </td>
 <td>
 <img src="MovPE3.gif">
