@@ -84,7 +84,8 @@ TablaPrecioDinamico <- function(t,Po,do,pd,oo,po) {
             "Periodo",
             "CantidadDemandada",
             "CantidadOfrecida",
-            "Precio en t")
+            "Precio en t"
+            )
     }
     return(tabla)
 }
