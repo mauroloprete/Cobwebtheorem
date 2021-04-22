@@ -5,7 +5,7 @@ El modelo de la Telaraña es un modelo general que explica la formación de prec
 Se utilizo como parte de una aplicación a la economia al tema de *Ecuaciones en diferencia*. 
 
 ### Oscilación Amortiguada:
-#### La pendiente de la curva de demanda es mayor que la de la oferta. 
+#### La pendiente de la curva de demanda es menor que la de la oferta. 
 
 <table>
 <tbody>
@@ -37,7 +37,7 @@ Se utilizo como parte de una aplicación a la economia al tema de *Ecuaciones en
 </table>
 
 ### Oscilación Explosiva:
-#### La pendiente de la curva de demanda es menor a la de la oferta. 
+#### La pendiente de la curva de demanda es mayor a la de la oferta. 
 
 <table>
 <tbody>
