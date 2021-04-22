@@ -52,7 +52,7 @@ Se utilizo como parte de una aplicación a la economia al tema de *Ecuaciones en
 </tbody>
 </table>
 
-En el repositorio se encuentra la programación en R con simulaciones de casos y su animación utilizando gganimate y ggplot2. Además, se encuentra la presentación utilizada en la exposición.
+En el repositorio se encuentra la programación en R con simulaciones de casos y su animación utilizando gganimate y ggplot2. Además, se encuentra la [presentación](https://github.com/mauroloprete/Cobwebtheorem/raw/master/Diapositivas.pdf) utilizada en la exposición.
 
 El trabajo fue realizado en conjunto con Fabricio Machado.
 
